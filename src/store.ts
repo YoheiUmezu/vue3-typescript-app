@@ -1,7 +1,6 @@
 import { reactive, readonly } from "vue"
 import axios from 'axios'
 import { Post } from './types'
-import { isDate } from "lodash"
 
 //アクセスする時にO(1)にするためにオブジェクトにIDを振る
 interface PostsState {
@@ -14,9 +13,16 @@ interface State {
     posts: PostsState
 }
 
+//モックデータをimport
+import { todayPost, thisWeek, thisMonth } from './mocks'
+
 const initialPostsState = (): PostsState => ({
-    all: {},
-    ids: [],
+    all: {
+        
+    },
+    ids: [
+        
+    ],
     loaded: false
 })
 

@@ -1,16 +1,25 @@
 import { nextTick } from '@vue/runtime-core'
 import { mount } from '@vue/test-utils'
-import Timeline from './Timeline.vue'
+import Home from './Home.vue'
+import flushPromises from 'flush-promises'
 
-describe('Timeline', () => {
-    it('renders 3 time periods', () => {
-        const wrapper = mount(Timeline)
+describe('Home', () => {
+    it('renders a loader', () => {
+        const wrapper = mount(Home)
+        //loaderが表示されるか
+        expect(wrapper.find('[data-test="progress"]').exists()).toBe(true)
+    })
+
+    it.only('renders 3 time periods', async(done) => {
+        const wrapper = mount(Home)
         //3つの期間が表示されるか
-        expect(wrapper.findAll('[data-test="period"]')).toHaveLength[3]
+        await flushPromises
+        console.log(wrapper.html())
+        //expect(wrapper.findAll('[data-test="period"]')).toHaveLength[3]
     })
 
     it('updates the period when clicked', async() => {
-        const wrapper = mount(Timeline)
+        const wrapper = mount(Home)
         //クリックされた時に期間がアップデートされるか
         const $today = wrapper.findAll('[data-test="period"]')[0]
         expect($today.classes()).toContain("is-active")
@@ -29,7 +38,7 @@ describe('Timeline', () => {
     })
 
     it('renders todays post by default', async() => {
-        const wrapper = mount(Timeline)
+        const wrapper = mount(Home)
         //でファオルトで今日のポストが表示されるか
         expect(wrapper.findAll('[data-test="post"]')).toHaveLength(1)
 

@@ -16,10 +16,7 @@ import { defineComponent, ref, computed } from 'vue'
 import moment from 'moment'
 import TimelinePost from './TimelinePost.vue'
 import { Period, Post } from './types'
-import { todayPost, thisWeek, thisMonth } from './mocks'
 import { useStore } from './store'
-
-const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
 export default defineComponent({
     components: {
@@ -29,12 +26,18 @@ export default defineComponent({
         const periods: Period[] = ['today', 'this week', 'this month']
         const selectPeriod = ref<Period>('today')
 
+        //flux store使用
         const store = useStore()
+        if(!store.getState().posts.loaded){
+            await store.fetchPosts()
+        }
+        const allPosts = store.getState().posts.ids.reduce<Post[]>((acc, id) => {
+            const post = store.getState().posts.all[id]
+            //結合して[]に全てのポストがpushされる
+            return acc.concat(post)
+        }, [])
 
-        //2秒待ってから表示　resolveされるまでrenderしない
-        await delay(2000)
-
-        const posts = computed(() => [todayPost, thisWeek, thisMonth].filter(post =>{
+        const posts = computed(() => allPosts.filter(post =>{
             if(
                 selectPeriod.value === 'today' && 
                 post.created.isAfter(moment().subtract(1, 'day'))
