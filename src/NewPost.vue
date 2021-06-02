@@ -1,10 +1,5 @@
 <template>
-  <section class="section">
-    <div class="container">
-     <Navbar />
-     <router-view />
-    </div>
-  </section>
+  <div>New Post</div>
 </template>
 
 <script lang="ts">
@@ -15,6 +10,6 @@ export default defineComponent({
   components: {
     Navbar
   },
-  name: 'App'
+  name: 'NewPost'
 })
 </script>

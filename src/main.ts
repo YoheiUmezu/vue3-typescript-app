@@ -4,7 +4,7 @@ import axios from 'axios'
 import * as mockData from './mocks'
 import { router } from './router'
 
-//1秒待ってから表示　resolveされるまでrenderしない App.vue　fallback
+//1秒待ってから表示　resolveされるまでポストをrenderしない　fallback
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 //@ts-ignore
 axios.get = async (url: string) => {

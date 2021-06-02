@@ -1,3 +1,4 @@
+//ポストのモックデータ
 import { Post } from './types'
 import moment from 'moment'
 

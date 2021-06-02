@@ -32,6 +32,7 @@ const initialState = (): State => ({
 
 class Store {
     protected state: State
+
     constructor(initialState: State) {
         this.state = reactive(initialState)
     }
@@ -54,7 +55,7 @@ class Store {
             all,
             loaded: true 
         }
-    }
+    } 
 
 }
 
